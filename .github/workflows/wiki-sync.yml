@@ -14,18 +14,26 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+          retry: 3
+          retry_interval: 10
 
       - name: Set up Git
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
+      - name: Wait for GitHub sync
+        run: sleep 15
+
       - name: Clone Wiki Repo
         run: |
-          # Extract repo name dynamically
+          set -e
           REPO_URL="https://github.com/${GITHUB_REPOSITORY}.wiki.git"
           echo "Cloning wiki repo: $REPO_URL"
-          git clone "$REPO_URL" wiki-repo
+          git clone "$REPO_URL" wiki-repo || (echo "Retrying..." && sleep 10 && git clone "$REPO_URL" wiki-repo)
 
       - name: Sync Wiki Files
         run: |
