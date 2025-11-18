@@ -1,0 +1,44 @@
+name: Sync Wiki
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'wiki/**'
+
+jobs:
+  sync-wiki:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Set up Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Clone Wiki Repo
+        run: |
+          # Extract repo name dynamically
+          REPO_URL="https://github.com/${GITHUB_REPOSITORY}.wiki.git"
+          echo "Cloning wiki repo: $REPO_URL"
+          git clone "$REPO_URL" wiki-repo
+
+      - name: Sync Wiki Files
+        run: |
+          rm -rf wiki-repo/*
+          cp -R wiki/* wiki-repo/
+
+      - name: Commit and Push Changes
+        run: |
+          cd wiki-repo
+          git add .
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Automated wiki update from main branch"
+            git push origin master
+          fi
