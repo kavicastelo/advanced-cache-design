@@ -1,0 +1,42 @@
+{
+  "name": "advanced-cache-design",
+  "version": "1.0.0",
+  "description": "A collection of advanced cache design algorithms including LRU, LFU, ARC, TinyLFU, Count-Min Sketch, and Segmented LRU, implemented in TypeScript.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "clean": "rm -rf dist",
+    "test": "echo \"No tests defined yet\"",
+    "example:lru": "node dist/examples/test-lru.js",
+    "example:lfu": "node dist/examples/test-lfu.js",
+    "example:arc": "node dist/examples/test-arc.js",
+    "example:tiny": "node dist/examples/test-tiny-lfu.js",
+    "example:slru": "node dist/examples/test-slru.js"
+  },
+  "keywords": [
+    "cache",
+    "lru",
+    "lfu",
+    "arc",
+    "tiny-lfu",
+    "count-min-sketch",
+    "slru",
+    "cache-algorithms",
+    "systems-design",
+    "typescript",
+    "nodejs",
+    "eviction-policy",
+    "high-performance"
+  ],
+  "author": "Kavi Castelo",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kavicastelo/advanced-cache-design.git"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3"
+  }
+}
