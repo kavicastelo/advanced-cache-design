@@ -48,5 +48,5 @@ jobs:
             echo "No changes to commit."
           else
             git commit -m "Automated wiki update from main branch"
-            git push "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.wiki.git" master
+            git push "https://${{ github.actor }}:${{ secrets.WIKI_PAT }}@github.com/${GITHUB_REPOSITORY}.wiki.git" master
           fi
